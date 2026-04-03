@@ -41,11 +41,6 @@ Traditional backups for media libraries are often prohibitively expensive or slo
     cp .env.example .env
     ```
 
-3.  **Run the Scanner: (WIP)**
-    ```bash
-    python main.py --scan
-    ```
-
 ---
 
 ## Contributing
