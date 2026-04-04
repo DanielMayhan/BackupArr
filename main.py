@@ -1,6 +1,7 @@
 import os
 import requests
 
+from utils import utils
 
 radarr_apikey = str(os.getenv("API_KEY"))
 radarr_url = "http://127.0.0.1:7878"
@@ -13,9 +14,11 @@ response = requests.get(url)
 data = response.json()
 len_data = len(data)
 
-print("---------------------------------------------")
+print("---------------------------------------------------------------------------------------------------------")
+
 for i in range(len_data):
-    print("Title: ", data[i]["title"])
-    print("Imdb:", data[i]["imdbId"])
-    print("Internal ID:", data[i]["id"])
-    print("---------------------------------------------")
+    if data[i]["hasFile"]:
+        print("Title: " + data[i]["title"])
+        print("ID: " + str(data[i]["id"]))
+        print("Magnet Link: " + utils.getmagnetlink(data[i]["id"]))
+        print("---------------------------------------------------------------------------------------------------------")
