@@ -1,7 +1,7 @@
 import json
 import os
-import requests
 
+import requests
 from requests import *
 
 import functions
