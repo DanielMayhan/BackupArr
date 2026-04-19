@@ -50,7 +50,7 @@ else :
     print("File exists")
     filehandle = open(filename, "r")
 
-## Make sure file is not emptry
+## Make sure file is not empty
 if os.path.exists(filename) and os.path.getsize(filename) > 0:
     with open(filename, 'r') as f:
         jsondata = json.load(f)
