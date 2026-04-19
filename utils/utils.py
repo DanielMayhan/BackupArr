@@ -1,6 +1,6 @@
 import os
-import requests
 
+import requests
 
 radarr_apikey = str(os.getenv("API_KEY"))
 
