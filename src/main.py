@@ -37,7 +37,7 @@ else:
     print(len_data, "movies have been found.")
 
 
-filename = "data.json"
+filename = "../data.json"
 filehandle = ""
 jsondata = {}
 
