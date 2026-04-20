@@ -1,38 +1,27 @@
-import json, os, sys
-
-import requests
-from requests import *
-
+import json
+import os
+import sys
 import functions
 from api_stuff import radarrapi as api
 
-baseurl = api.baseurl + api.movielist
-url = baseurl + "?" + api.apikey
-radarr_data = {}
+url = api.baseurl + api.movielist + "?" + api.apikey
 
-## Trying to Establish connection to Radarr
-try:
-    print("Connecting to Radarr...")
-    response = requests.get(url, timeout=10)
-    response.raise_for_status()
+## Attempt Reconnection
+while True:
+    (established_connection, radarr_data) = functions.connectToRadarr(url)
 
-    radarr_data = response.json()
-    print("Connection successful")
-except Timeout:
-    print("Error: The request timed out. Radarr might be down or slow.\n@:", baseurl, "\nExiting...")
-    sys.exit("Error: The request timed out. Radarr might be down or slow.")
-except ConnectionError:
-    print("Error: Failed to connect to Radarr. Check your URL or network.\n@:", baseurl, "\nExiting...")
-    sys.exit("Error: Failed to connect to Radarr. Check your URL or network.")
-except HTTPError as e:
-    print(f"HTTP Error: {e}\n@:", baseurl, "\n Exiting...")
-    sys.exit(e)
-except RequestException as e:
-    print(f"An ambiguous error occurred: {e}\n@:", baseurl, "\nExiting...")
-    sys.exit(e)
-except ValueError:
-    print("Error: Successfully connected, but received invalid JSON.\n@:", baseurl, "\nExiting...")
-    sys.exit("Error: Successfully connected, but received invalid JSON.")
+    if established_connection:
+        print("Connection successful")
+        break
+
+    while True:
+        choice = input("Connection failed. Try again? [y/n]: ").lower().strip()
+        if choice == "n": sys.exit("User terminated the process")
+        elif choice == "y":
+            print("Reconnecting...")
+            break
+
+        else: print("Invalid input. Use: y/n")
 
 
 len_data = len(radarr_data)
@@ -42,7 +31,7 @@ else:
     print(len_data, "movies have been found.")
 
 
-filename = "../data.json"
+filename = "data.json"
 filehandle = ""
 jsondata = {}
 
