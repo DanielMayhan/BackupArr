@@ -1,5 +1,4 @@
-import json
-import os
+import json, os, sys
 
 import requests
 from requests import *
@@ -7,7 +6,8 @@ from requests import *
 import functions
 from api_stuff import radarrapi as api
 
-url = api.baseurl + api.movielist + "?" + api.apikey
+baseurl = api.baseurl + api.movielist
+url = baseurl + "?" + api.apikey
 radarr_data = {}
 
 ## Trying to Establish connection to Radarr
@@ -19,15 +19,20 @@ try:
     radarr_data = response.json()
     print("Connection successful")
 except Timeout:
-    print("Error: The request timed out. Radarr might be down or slow.\n@: ", url, "\nExiting...")
+    print("Error: The request timed out. Radarr might be down or slow.\n@:", baseurl, "\nExiting...")
+    sys.exit("Error: The request timed out. Radarr might be down or slow.")
 except ConnectionError:
-    print("Error: Failed to connect to Radarr. Check your URL or network.\n@: ", url, "\nExiting...")
+    print("Error: Failed to connect to Radarr. Check your URL or network.\n@:", baseurl, "\nExiting...")
+    sys.exit("Error: Failed to connect to Radarr. Check your URL or network.")
 except HTTPError as e:
-    print(f"HTTP Error: {e}\n@: ", url, "\n Exiting...")
+    print(f"HTTP Error: {e}\n@:", baseurl, "\n Exiting...")
+    sys.exit(e)
 except RequestException as e:
-    print(f"An ambiguous error occurred: {e}\n@: ", url, "\nExiting...")
+    print(f"An ambiguous error occurred: {e}\n@:", baseurl, "\nExiting...")
+    sys.exit(e)
 except ValueError:
-    print("Error: Successfully connected, but received invalid JSON.\n@: ", url, "\nExiting...")
+    print("Error: Successfully connected, but received invalid JSON.\n@:", baseurl, "\nExiting...")
+    sys.exit("Error: Successfully connected, but received invalid JSON.")
 
 
 len_data = len(radarr_data)

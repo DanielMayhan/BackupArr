@@ -1,7 +1,7 @@
-import requests
+import requests, sys
 from requests.exceptions import HTTPError, Timeout, RequestException
 
-def connectToRadarr(url):
+def connectToRadarr(baseurl, url):
         try:
             print("Connecting to Radarr...")
             response = requests.get(url, timeout=10)
@@ -10,15 +10,20 @@ def connectToRadarr(url):
             radarr_data = response.json()
             print("Connection successful, Movie data Acquired")
         except Timeout:
-            print("Error: The request timed out. Radarr might be down or slow.")
+            print("Error: The request timed out. Radarr might be down or slow.\n@:", baseurl, "\nExiting...")
+            sys.exit("Error: The request timed out. Radarr might be down or slow.")
         except ConnectionError:
-            print("Error: Failed to connect to Radarr. Check your URL or network.")
+            print("Error: Failed to connect to Radarr. Check your URL or network.\n@:", baseurl, "\nExiting...")
+            sys.exit("Error: Failed to connect to Radarr. Check your URL or network.")
         except HTTPError as e:
-            print(f"HTTP Error: {e}")
+            print(f"HTTP Error: {e}\n@:", baseurl, "\n Exiting...")
+            sys.exit(e)
         except RequestException as e:
-            print(f"An ambiguous error occurred: {e}")
+            print(f"An ambiguous error occurred: {e}\n@:", baseurl, "\nExiting...")
+            sys.exit(e)
         except ValueError:
-            print("Error: Successfully connected, but received invalid JSON.")
+            print("Error: Successfully connected, but received invalid JSON.\n@:", baseurl, "\nExiting...")
+            sys.exit("Error: Successfully connected, but received invalid JSON.")
 
 
 def getimdbID(moviedata):
