@@ -1,30 +1,31 @@
-import requests, sys
+import requests
 from requests.exceptions import HTTPError, Timeout, RequestException
 
-def connectToRadarr(baseurl, url):
+from api_stuff import radarrapi as api
+
+def connectToRadarr(url):
         try:
             print("Connecting to Radarr...")
             response = requests.get(url, timeout=10)
             response.raise_for_status()
 
-            radarr_data = response.json()
-            print("Connection successful, Movie data Acquired")
+            response_data = response.json()
+            return True, response_data
         except Timeout:
-            print("Error: The request timed out. Radarr might be down or slow.\n@:", baseurl, "\nExiting...")
-            sys.exit("Error: The request timed out. Radarr might be down or slow.")
+            print("Error: The request timed out. Radarr might be down or slow.\n@:", api.baseurl)
+            return False, ""
         except ConnectionError:
-            print("Error: Failed to connect to Radarr. Check your URL or network.\n@:", baseurl, "\nExiting...")
-            sys.exit("Error: Failed to connect to Radarr. Check your URL or network.")
+            print("Error: Failed to connect to Radarr. Check your URL or network.\n@:", api.baseurl)
+            return False, ""
         except HTTPError as e:
-            print(f"HTTP Error: {e}\n@:", baseurl, "\n Exiting...")
-            sys.exit(e)
+            print(f"HTTP Error: {e}\n@:", api.baseurl)
+            return False, ""
         except RequestException as e:
-            print(f"An ambiguous error occurred: {e}\n@:", baseurl, "\nExiting...")
-            sys.exit(e)
+            print(f"An ambiguous error occurred: {e}\n@:", api.baseurl)
+            return False, ""
         except ValueError:
-            print("Error: Successfully connected, but received invalid JSON.\n@:", baseurl, "\nExiting...")
-            sys.exit("Error: Successfully connected, but received invalid JSON.")
-
+            print("Error: Successfully connected, but received invalid JSON.\n@:", api.baseurl)
+            return False, ""
 
 def getimdbID(moviedata):
     return moviedata["imdbId"]
