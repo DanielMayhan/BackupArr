@@ -59,3 +59,6 @@ for i in range(len_data):
 
 with open(filename, "w", encoding="utf-8") as f:
     json.dump(jsondata, f, indent=4, ensure_ascii=False, sort_keys=True)
+
+print("Data has been writen to:", filename)
+print("Exiting...")
