@@ -24,13 +24,6 @@ while True:
         else: print("Invalid input. Use: y/n")
 
 
-len_data = len(radarr_data)
-if len_data == 1:
-    print(len_data, "movie have been found.")
-else:
-    print(len_data, "movies have been found.")
-
-
 filename = "data.json"
 filehandle = ""
 jsondata = {}
@@ -41,8 +34,20 @@ if not os.path.isfile(filename):
     print("Creating: ", filename)
     filehandle = open(filename, "r")
 else :
-    print("File exists")
+    print("Found:", filename)
     filehandle = open(filename, "r")
+
+
+len_data = len(radarr_data)
+if len_data == 1:
+    print(len_data, "movie have been found.")
+elif len_data == 0:
+    print("No movie have been found.")
+    print("Exiting...")
+    sys.exit("No Movies found.")
+else:
+    print(len_data, "movies have been found.")
+
 
 ## Make sure file is not empty
 if os.path.exists(filename) and os.path.getsize(filename) > 0:

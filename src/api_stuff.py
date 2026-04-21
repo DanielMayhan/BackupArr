@@ -1,7 +1,7 @@
 import os
 from enum import Enum
 
-__internal_radarr_apikey__ = str(os.getenv("API_KEY"))
+__internal_radarr_apikey__ = str(os.getenv("API_KEY2"))
 
 class radarrapi(str, Enum):
     apikey = "apiKey=" + str(__internal_radarr_apikey__)
