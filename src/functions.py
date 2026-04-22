@@ -39,3 +39,21 @@ def makeJsonData(index, data):
         "tmdbId": int(data[index]["tmdbId"]),
         "monitored": bool(data[index]["monitored"])
     }
+
+def getnumuserinput(lastnum):
+    while True:
+        num = input("Enter choice, default [0]: ").strip()
+
+        try:
+            if not num:
+                return 0
+
+            num = int(num)
+
+            if int(num) <= lastnum:
+                return int(num)
+
+            else:
+                print(str(num) + " is not a integer, or a valid input...")
+        except ValueError:
+            print(str(num) + " is not a valid input...")
