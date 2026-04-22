@@ -46,7 +46,7 @@ def makeJsonData(index, data):
         "monitored": bool(data[index]["monitored"])
     }
 
-def getnumuserinput(lastnum):
+def getNumUserInput(lastnum):
     while True:
         num = input("Enter choice, default [0]: ").strip()
 
