@@ -1,5 +1,6 @@
 # BackupArr (WIP)
 
+> [!NOTE]
 > **AI-Generated Documentation:** This README was drafted with the assistance of AI, but **NONE** of the Code in this Project was written by AI.
 
 Welcome to the **BackupArr** repository. This project is currently in its early development stages (**Pre-Alpha**) and aims to provide a lightweight, efficient way to "back up" your media library without duplicating large video files.
