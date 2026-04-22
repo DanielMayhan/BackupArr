@@ -72,7 +72,7 @@ while True:
 for movie, details in backupdata.items():
     jsonbody = {
         "title": str(details["title"]),
-        "tmdbId": int(details["tmdbID"]),
+        "tmdbId": int(details["tmdbId"]),
         "qualityProfileId": quality_dictionary[int(details["quality"])],
         "rootFolderPath": str(selectedRootFolderPath),
         "monitored": bool(monitored),

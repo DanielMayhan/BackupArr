@@ -21,7 +21,7 @@ def getJsonDataFromUrl(connectionUrl):
     try:
         print("Connecting to " + noApiUrl + "...")
         response = requests.get(connectionUrl, timeout=10).json()
-        print("Successfully connected with Code: " + response.raise_for_status())
+        print("Successfully got Data")
         return True, response
     except Timeout:
         print("Error: The request timed out. This URL might be down or slow.\n@:", noApiUrl)
@@ -40,13 +40,19 @@ def getJsonDataFromUrl(connectionUrl):
         return False, ""
 
 def makeJsonData(index, data):
-    return {
+    try:
+        jsonData =  {
         "title": str(data[index]["title"]),
         "cleanTitle": str(data[index]["cleanTitle"]),
         "imdbId": str(data[index]["imdbId"]),
         "tmdbId": int(data[index]["tmdbId"]),
-        "monitored": bool(data[index]["monitored"])
-    }
+        "monitored": bool(data[index]["monitored"]),
+        "quality": int(data[index]["movieFile"]["quality"]["quality"]["resolution"])
+        }
+        return jsonData
+    except KeyError:
+        print("KeyError: Important Data not found!")
+        sys.exit()
 
 def getNumUserInput(lastnum):
     while True:
