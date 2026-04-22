@@ -8,7 +8,7 @@ url = api.baseurl + api.movielist + "?" + api.apikey
 
 ## Attempt Reconnection
 while True:
-    (established_connection, radarr_data) = functions.connectToUrl(url, api.baseurl)
+    (established_connection, radarr_data) = functions.getJsonDataFromUrl(url, api.baseurl)
 
     if established_connection:
         print("Connection successful")
