@@ -25,17 +25,14 @@ while True:
 
 
 filename = "data.json"
-filehandle = ""
 jsondata = {}
 
 ## Check if File Exists
 if not os.path.isfile(filename):
     open(filename, "x")
     print("Creating: ", filename)
-    filehandle = open(filename, "r")
 else :
-    print("Found:", filename)
-    filehandle = open(filename, "r")
+    print(filename, "has been found.")
 
 
 len_data = len(radarr_data)
@@ -48,14 +45,6 @@ elif len_data == 0:
 else:
     print(len_data, "movies have been found.")
 
-
-## Make sure file is not empty
-if os.path.exists(filename) and os.path.getsize(filename) > 0:
-    with open(filename, 'r') as f:
-        jsondata = json.load(f)
-else:
-    print(filename, "is empty.")
-filehandle.close()
 
 ## Making and writing data to json file
 for i in range(len_data):
