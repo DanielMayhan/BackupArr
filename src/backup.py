@@ -4,10 +4,9 @@ import sys
 import functions
 from api_stuff import radarrapi as api
 
-url = api.baseurl + api.movieListUrl + "?" + api.apikey
 
 ## Attempt Reconnection
-returnedData = functions.attemptConnection(api.baseurl + api.movieListUrl + "?" + api.apikey, api.baseurl + api.movieListUrl)
+returnedData = functions.attemptConnection(api.movieListUrl)
 
 filename = "data.json"
 jsondata = {}
