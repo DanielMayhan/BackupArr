@@ -5,7 +5,7 @@ from api_stuff import radarrapi as api
 filename = "data.json"
 
 
-rootfolderurl = api.baseurl + api.rootfolder + "?" + api.apikey
+rootfolderurl = api.baseurl + api.rootFolderUrl + "?" + api.apikey
 rootFolder = requests.get(rootfolderurl).json()
 
 
@@ -42,7 +42,7 @@ for tmdbID, details in backupdata.items():
 
 
 quality_dictionary = {}
-qualityprofiles = requests.get(api.baseurl + api.qprofiles + "?" + api.apikey).json()
+qualityprofiles = requests.get(api.baseurl + api.qualityProfileUrl + "?" + api.apikey).json()
 for x in qualities_set:
     print("Which Quality Profile should be used for importing ==> " + str(x) + "P <== movies?")
 
@@ -66,7 +66,7 @@ while True:
     else:
         print("Invalid Input")
 
-reimporturl = api.baseurl + api.movielist + "?" + api.apikey
+reimporturl = api.baseurl + api.movieListUrl + "?" + api.apikey
 
 for movie, details in backupdata.items():
     jsonbody = {
