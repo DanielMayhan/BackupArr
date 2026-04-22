@@ -3,28 +3,26 @@ from requests.exceptions import HTTPError, Timeout, RequestException
 
 from api_stuff import radarrapi as api
 
-def connectToRadarr(url):
+def getJsonDataFromUrl(url, baseurl):
         try:
-            print("Connecting to Radarr...")
-            response = requests.get(url, timeout=10)
+            print("Connecting to " + baseurl + "...")
+            response = requests.get(url, timeout=10).json()
             response.raise_for_status()
-
-            response_data = response.json()
-            return True, response_data
+            return True, response
         except Timeout:
-            print("Error: The request timed out. Radarr might be down or slow.\n@:", api.baseurl)
+            print("Error: The request timed out. This URL might be down or slow.\n@:", baseurl)
             return False, ""
         except ConnectionError:
-            print("Error: Failed to connect to Radarr. Check your URL or network.\n@:", api.baseurl)
+            print("Error: Failed to connect to this URL. Check your URL or network.\n@:", baseurl)
             return False, ""
         except HTTPError as e:
-            print(f"HTTP Error: {e}\n@:", api.baseurl)
+            print(f"HTTP Error: {e}\n@:", baseurl)
             return False, ""
         except RequestException as e:
-            print(f"An ambiguous error occurred: {e}\n@:", api.baseurl)
+            print(f"An ambiguous error occurred: {e}\n@:", baseurl)
             return False, ""
         except ValueError:
-            print("Error: Successfully connected, but received invalid JSON.\n@:", api.baseurl)
+            print("Error: Successfully connected, but received invalid JSON.\n@:", baseurl)
             return False, ""
 
 def getimdbID(moviedata):
@@ -33,15 +31,11 @@ def getimdbID(moviedata):
 def gettmdbID(moviedata):
     return moviedata["tmdbId"]
 
-def makejsondata(title, cleanTitle, imdbID, tmdbID, monitored):
-    jsondata = {
-        "title": str(title),
-        "cleanTitle": str(cleanTitle),
-        "imdbID": str(imdbID),
-        "tmdbID": int(tmdbID),
-        "monitored": bool(monitored)
+def makeJsonData(index, data):
+    return {
+        "title": str(data[index]["title"]),
+        "cleanTitle": str(data[index]["cleanTitle"]),
+        "imdbId": str(data[index]["imdbId"]),
+        "tmdbId": int(data[index]["tmdbId"]),
+        "monitored": bool(data[index]["monitored"])
     }
-    return jsondata
-
-def getjsondata(index, data):
-    return makejsondata(data[index]["title"], data[index]["cleanTitle"], data[index]["imdbId"], data[index]["tmdbId"], data[index]["monitored"])

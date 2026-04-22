@@ -59,7 +59,7 @@ filehandle.close()
 
 ## Making and writing data to json file
 for i in range(len_data):
-    jsondata[str(radarr_data[i]["tmdbId"])] = functions.getjsondata(i, radarr_data)
+    jsondata[str(radarr_data[i]["tmdbId"])] = functions.makeJsonData(i, radarr_data)
     print("Writing data for: ", radarr_data[i]["title"])
 
 with open(filename, "w", encoding="utf-8") as f:
