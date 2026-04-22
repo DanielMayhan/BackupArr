@@ -1,7 +1,6 @@
 import requests
 from requests.exceptions import HTTPError, Timeout, RequestException
 
-from api_stuff import radarrapi as api
 
 def getJsonDataFromUrl(url, baseurl):
         try:
