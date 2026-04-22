@@ -11,7 +11,7 @@ qualityProfiles = functions.attemptConnection(api.qualityProfileUrl)
 
 ## Selecting Root Folder
 if len(rootFolder) == 0:
-    sys.exit("No root folder found, please add a root folder to Radarr")
+    sys.exit("No root folder found, please add a root folder.")
 
 elif len(rootFolder) == 1:
     selectedRootFolderPath = rootFolder[0]["path"]
