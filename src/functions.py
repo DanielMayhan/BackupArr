@@ -1,27 +1,40 @@
-import requests
+import requests, sys
 from requests.exceptions import HTTPError, Timeout, RequestException
 
+def attemptConnection(connectionUrl, noApiUrl):
+    while True:
+        (connected, jsonData) = getJsonDataFromUrl(connectionUrl, noApiUrl)
 
-def getJsonDataFromUrl(url, baseurl):
+        if connected: return jsonData
+
+        while True:
+            choice = input("Connection failed, make sure the URL is valid and accessible. (y)Reconnect | (n) Exit: ").lower().strip()
+            if choice == "n": sys.exit("User terminated the process")
+            elif choice == "y":
+                print("Reconnecting...")
+                break
+            else: print("Invalid input. Use: y/n")
+
+def getJsonDataFromUrl(connectionUrl, noApiUrl):
         try:
-            print("Connecting to " + baseurl + "...")
-            response = requests.get(url, timeout=10).json()
-            response.raise_for_status()
+            print("Connecting to " + noApiUrl + "...")
+            response = requests.get(connectionUrl, timeout=10).json()
+            print("Successfully connected with Code: " + response.raise_for_status())
             return True, response
         except Timeout:
-            print("Error: The request timed out. This URL might be down or slow.\n@:", baseurl)
+            print("Error: The request timed out. This URL might be down or slow.\n@:", noApiUrl)
             return False, ""
         except ConnectionError:
-            print("Error: Failed to connect to this URL. Check your URL or network.\n@:", baseurl)
+            print("Error: Failed to connect to this URL. Check your URL or network.\n@:", noApiUrl)
             return False, ""
         except HTTPError as e:
-            print(f"HTTP Error: {e}\n@:", baseurl)
+            print(f"HTTP Error: {e}\n@:", noApiUrl)
             return False, ""
         except RequestException as e:
-            print(f"An ambiguous error occurred: {e}\n@:", baseurl)
+            print(f"An ambiguous error occurred: {e}\n@:", noApiUrl)
             return False, ""
         except ValueError:
-            print("Error: Successfully connected, but received invalid JSON.\n@:", baseurl)
+            print("Error: Successfully connected, but received invalid JSON.\n@:", noApiUrl)
             return False, ""
 
 def makeJsonData(index, data):
