@@ -1,45 +1,60 @@
-import requests
+import requests, sys
 from requests.exceptions import HTTPError, Timeout, RequestException
 
+def attemptConnection(connectionUrl):
+    while True:
+        (connected, jsonData) = getJsonDataFromUrl(connectionUrl)
 
-def getJsonDataFromUrl(url, baseurl):
-        try:
-            print("Connecting to " + baseurl + "...")
-            response = requests.get(url, timeout=10).json()
-            response.raise_for_status()
-            return True, response
-        except Timeout:
-            print("Error: The request timed out. This URL might be down or slow.\n@:", baseurl)
-            return False, ""
-        except ConnectionError:
-            print("Error: Failed to connect to this URL. Check your URL or network.\n@:", baseurl)
-            return False, ""
-        except HTTPError as e:
-            print(f"HTTP Error: {e}\n@:", baseurl)
-            return False, ""
-        except RequestException as e:
-            print(f"An ambiguous error occurred: {e}\n@:", baseurl)
-            return False, ""
-        except ValueError:
-            print("Error: Successfully connected, but received invalid JSON.\n@:", baseurl)
-            return False, ""
+        if connected: return jsonData
 
-def getimdbID(moviedata):
-    return moviedata["imdbId"]
+        while True:
+            choice = input("Connection failed, make sure the URL is valid and accessible. (y)Reconnect | (n) Exit: ").lower().strip()
+            if choice == "n": sys.exit("User terminated the process")
+            elif choice == "y":
+                print("Reconnecting...")
+                break
+            else: print("Invalid input. Use: y/n")
 
-def gettmdbID(moviedata):
-    return moviedata["tmdbId"]
+
+def getJsonDataFromUrl(connectionUrl):
+    noApiUrl = connectionUrl.split("?apiKey=")[0]
+    try:
+        print("Connecting to " + noApiUrl + "...")
+        response = requests.get(connectionUrl, timeout=10).json()
+        print("Successfully got Data")
+        return True, response
+    except Timeout:
+        print("Error: The request timed out. This URL might be down or slow.\n@:", noApiUrl)
+        return False, ""
+    except ConnectionError:
+        print("Error: Failed to connect to this URL. Check your URL or network.\n@:", noApiUrl)
+        return False, ""
+    except HTTPError as e:
+        print(f"HTTP Error: {e}\n@:", noApiUrl)
+        return False, ""
+    except RequestException as e:
+        print(f"An ambiguous error occurred: {e}\n@:", noApiUrl)
+        return False, ""
+    except ValueError:
+        print("Error: Successfully connected, but received invalid JSON.\n@:", noApiUrl)
+        return False, ""
 
 def makeJsonData(index, data):
-    return {
+    try:
+        jsonData =  {
         "title": str(data[index]["title"]),
         "cleanTitle": str(data[index]["cleanTitle"]),
         "imdbId": str(data[index]["imdbId"]),
         "tmdbId": int(data[index]["tmdbId"]),
-        "monitored": bool(data[index]["monitored"])
-    }
+        "monitored": bool(data[index]["monitored"]),
+        "quality": int(data[index]["movieFile"]["quality"]["quality"]["resolution"])
+        }
+        return jsonData
+    except KeyError:
+        print("KeyError: Important Data not found!")
+        sys.exit()
 
-def getnumuserinput(lastnum):
+def getNumUserInput(lastnum):
     while True:
         num = input("Enter choice, default [0]: ").strip()
 

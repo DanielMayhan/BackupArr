@@ -4,25 +4,9 @@ import sys
 import functions
 from api_stuff import radarrapi as api
 
-url = api.baseurl + api.movielist + "?" + api.apikey
 
 ## Attempt Reconnection
-while True:
-    (established_connection, radarr_data) = functions.getJsonDataFromUrl(url, api.baseurl)
-
-    if established_connection:
-        print("Connection successful")
-        break
-
-    while True:
-        choice = input("Connection failed. Try again? [y/n]: ").lower().strip()
-        if choice == "n": sys.exit("User terminated the process")
-        elif choice == "y":
-            print("Reconnecting...")
-            break
-
-        else: print("Invalid input. Use: y/n")
-
+returnedData = functions.attemptConnection(api.movieListUrl)
 
 filename = "data.json"
 jsondata = {}
@@ -35,7 +19,7 @@ else :
     print(filename, "has been found.")
 
 
-len_data = len(radarr_data)
+len_data = len(returnedData)
 if len_data == 1:
     print(len_data, "movie have been found.")
 elif len_data == 0:
@@ -48,8 +32,8 @@ else:
 
 ## Making and writing data to json file
 for i in range(len_data):
-    jsondata[str(radarr_data[i]["tmdbId"])] = functions.makeJsonData(i, radarr_data)
-    print("Writing data for: ", radarr_data[i]["title"])
+    jsondata[str(returnedData[i]["tmdbId"])] = functions.makeJsonData(i, returnedData)
+    print("Writing data for: ", returnedData[i]["title"])
 
 with open(filename, "w", encoding="utf-8") as f:
     json.dump(jsondata, f, indent=4, ensure_ascii=False, sort_keys=True)
