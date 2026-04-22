@@ -24,12 +24,6 @@ def getJsonDataFromUrl(url, baseurl):
             print("Error: Successfully connected, but received invalid JSON.\n@:", baseurl)
             return False, ""
 
-def getimdbID(moviedata):
-    return moviedata["imdbId"]
-
-def gettmdbID(moviedata):
-    return moviedata["tmdbId"]
-
 def makeJsonData(index, data):
     return {
         "title": str(data[index]["title"]),
