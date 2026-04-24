@@ -44,6 +44,18 @@ for tmdbID, details in backupdata.items():
     qualities_set.add(details["quality"])
 
 for x in qualities_set:
+    if x == -1:
+        print("There where was no Quality Data found for these movies, which Profile should be used for these?")
+
+        for i in range(len(qualityProfiles)):
+            print("[" + str(i) + "] | ID: " + str(qualityProfiles[i]["id"]) + " | Name: " + str(qualityProfiles[i]["name"]))
+
+        quality_dictionary[x] = qualityProfiles[functions.getNumUserInput(len(qualityProfiles) - 1)]["id"]
+
+        print("Profile-Id: " + str(quality_dictionary[x]) + " is now associated with the movies that had no data found.")
+        break
+
+
     print("Which Quality Profile should be used for importing ==> " + str(x) + "P <== movies?")
 
     for i in range(len(qualityProfiles)):
@@ -54,20 +66,6 @@ for x in qualities_set:
     print(str(x) + "p associated with Profile-Id: " + str(quality_dictionary[x]))
 
 
-## Monitoring
-while True:
-    shouldMonitor = input("Should the imported movies be monitored? [y/n] ").strip().lower()
-
-    if shouldMonitor == "y":
-        monitored = True
-        break
-    elif shouldMonitor == "n":
-        monitored = False
-        break
-    else:
-        print("Invalid Input")
-
-
 ## Making data for import
 for movie, details in backupdata.items():
     jsonbody = {
@@ -75,7 +73,7 @@ for movie, details in backupdata.items():
         "tmdbId": int(details["tmdbId"]),
         "qualityProfileId": quality_dictionary[int(details["quality"])],
         "rootFolderPath": str(selectedRootFolderPath),
-        "monitored": bool(monitored),
+        "monitored": bool(details["monitored"]),
     }
 
     resp = requests.post(api.movieListUrl, json=jsonbody)

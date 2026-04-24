@@ -41,13 +41,16 @@ def getJsonDataFromUrl(connectionUrl):
 
 def makeJsonData(index, data):
     try:
+        if data[index]["movieFile"]: quality = data[index]["movieFile"]["quality"]["quality"]["resolution"]
+        else: quality = -1
+
         jsonData =  {
         "title": str(data[index]["title"]),
         "cleanTitle": str(data[index]["cleanTitle"]),
         "imdbId": str(data[index]["imdbId"]),
         "tmdbId": int(data[index]["tmdbId"]),
         "monitored": bool(data[index]["monitored"]),
-        "quality": int(data[index]["movieFile"]["quality"]["quality"]["resolution"])
+        "quality": int(quality)
         }
         return jsonData
     except KeyError:
