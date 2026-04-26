@@ -2,9 +2,10 @@ import requests, sys, functions, os, json
 from api_stuff import radarrapi as api
 
 
-filename = "data.json"
+def run(app, path):
+    ## Resolving Filename
+    filename = functions.resolveFilename(path)
 
-def run(app, filename):
     ## Required API Calls
     rootFolder = functions.attemptConnection(api.rootFolderUrl)
     qualityProfiles = functions.attemptConnection(api.qualityProfileUrl)
@@ -28,13 +29,21 @@ def run(app, filename):
 
 
     ## Load file
-    if os.path.exists(filename) and os.path.getsize(filename) > 0:
+    try:
         with open(filename, 'r') as f:
             backupdata = json.load(f)
-            print("Loaded", filename)
-    else:
-        print(filename, "does not exist, or is empty.")
-        sys.exit("Empty Backup File")
+            print("Loaded contents of:", filename)
+    except Exception as e:
+        sys.exit("An Error occurred: " + str(e))
+
+    #if os.path.exists(filename) and os.path.getsize(filename) > 0:
+    #    with open(filename, 'r') as f:
+    #        backupdata = json.load(f)
+    #        print("Loaded", filename)
+    #else:
+    #    print(filename, "does not exist, or is empty.")
+    #    sys.exit("Empty Backup File")
+
 
 
     ## Select Qualities
@@ -68,6 +77,7 @@ def run(app, filename):
 
 
     ## Making data for import
+    # TODO: Check Status codes and make Report
     for movie, details in backupdata.items():
         jsonbody = {
             "title": str(details["title"]),
@@ -78,9 +88,10 @@ def run(app, filename):
         }
 
         resp = requests.post(api.movieListUrl, json=jsonbody)
+
+        print("Imported: " + str(details["title"]))
         print(str(resp.elapsed.total_seconds()) + "s")
         print(resp.status_code)
-        print("Imported: " + str(details["title"]))
 
 if __name__ == "__main__":
     run()

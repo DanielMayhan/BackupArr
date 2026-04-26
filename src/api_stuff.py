@@ -1,5 +1,8 @@
 import os
 from enum import StrEnum
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class radarrapi(StrEnum ):
     apikey = "apiKey=" + str(os.getenv("RADARR_APIKEY"))

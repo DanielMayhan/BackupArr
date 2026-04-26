@@ -2,21 +2,14 @@ import json, os, sys, functions
 from api_stuff import radarrapi as api
 
 def run(app, filename):
-    ## Attempt Reconnection
-    returnedData = functions.attemptConnection(api.movieListUrl)
+    ## Resolving Filename
+    filename = functions.resolveFilename(filename)
 
-    filename = "data.json"
-    jsondata = {}
+    ## Attempt Connection
+    movieData = functions.attemptConnection(api.movieListUrl)
 
-    ## Check if File Exists
-    if not os.path.isfile(filename):
-        open(filename, "x")
-        print("Creating: ", filename)
-    else :
-        print(filename, "has been found.")
-
-
-    len_data = len(returnedData)
+    ## Display found movies
+    len_data = len(movieData)
     if len_data == 1:
         print(len_data, "movie have been found.")
     elif len_data == 0:
@@ -28,9 +21,10 @@ def run(app, filename):
 
 
     ## Making and writing data to json file
+    jsondata = {}
     for i in range(len_data):
-        jsondata[str(returnedData[i]["tmdbId"])] = functions.makeJsonData(i, returnedData)
-        print("Writing data for: ", returnedData[i]["title"])
+        jsondata[str(movieData[i]["tmdbId"])] = functions.makeJsonData(i, movieData)
+        print("Writing data for: ", movieData[i]["title"])
 
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(jsondata, f, indent=4, ensure_ascii=False, sort_keys=True)
