@@ -25,8 +25,8 @@ Traditional backups for media libraries are often prohibitively expensive due to
     cd backuparr
     ```
 
-2.  **Configure Environment (WIP):**
-    Copy the sample configuration and add your Servarr API keys.
+2.  **Configure Environment:**
+    Copy the sample configuration and add your Radarr API key & Url.
     ```bash
     cp .env.example .env
     ```
