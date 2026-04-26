@@ -1,12 +1,12 @@
+from pathlib import Path
+
 import requests, sys
 from requests.exceptions import HTTPError, Timeout, RequestException
 
 def attemptConnection(connectionUrl):
     while True:
         (connected, jsonData) = getJsonDataFromUrl(connectionUrl)
-
         if connected: return jsonData
-
         while True:
             choice = input("Connection failed, make sure the URL is valid and accessible. (y)Reconnect | (n) Exit: ").lower().strip()
             if choice == "n": sys.exit("User terminated the process")
@@ -15,13 +15,13 @@ def attemptConnection(connectionUrl):
                 break
             else: print("Invalid input. Use: y/n")
 
-
+# TODO: Added 401 Unauthorized Error
 def getJsonDataFromUrl(connectionUrl):
     noApiUrl = connectionUrl.split("?apiKey=")[0]
     try:
-        print("Connecting to " + noApiUrl + "...")
+        print("Connecting to " + noApiUrl)
         response = requests.get(connectionUrl, timeout=10).json()
-        print("Successfully got Data")
+        print("Connection established.")
         return True, response
     except Timeout:
         print("Error: The request timed out. This URL might be down or slow.\n@:", noApiUrl)
@@ -41,7 +41,7 @@ def getJsonDataFromUrl(connectionUrl):
 
 def makeJsonData(index, data):
     try:
-        if data[index]["movieFile"]: quality = data[index]["movieFile"]["quality"]["quality"]["resolution"]
+        if data[index].get("movieFile") is not None: quality = data[index]["movieFile"]["quality"]["quality"]["resolution"]
         else: quality = -1
 
         jsonData =  {
@@ -53,24 +53,27 @@ def makeJsonData(index, data):
         "quality": int(quality)
         }
         return jsonData
-    except KeyError:
+    except Exception as e:
         print("KeyError: Important Data not found!")
+        print(str(e))
         sys.exit()
 
 def getNumUserInput(lastnum):
     while True:
         num = input("Enter choice, default [0]: ").strip()
-
         try:
-            if not num:
-                return 0
-
+            if not num: return 0
             num = int(num)
+            if int(num) <= lastnum: return int(num)
+            else: print(str(num) + " is not a integer, or a valid input...")
 
-            if int(num) <= lastnum:
-                return int(num)
-
-            else:
-                print(str(num) + " is not a integer, or a valid input...")
         except ValueError:
             print(str(num) + " is not a valid input...")
+
+def resolveFilename(path):
+    filename = Path(path).resolve()
+    try:
+        filename.parent.mkdir(parents=True, exist_ok=True)
+        return filename
+    except Exception as e:
+        print("An Error occured: " + str(e))
