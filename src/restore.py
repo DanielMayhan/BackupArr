@@ -36,15 +36,6 @@ def run(app, path):
     except Exception as e:
         sys.exit("An Error occurred: " + str(e))
 
-    #if os.path.exists(filename) and os.path.getsize(filename) > 0:
-    #    with open(filename, 'r') as f:
-    #        backupdata = json.load(f)
-    #        print("Loaded", filename)
-    #else:
-    #    print(filename, "does not exist, or is empty.")
-    #    sys.exit("Empty Backup File")
-
-
 
     ## Select Qualities
     qualities_set = set()
