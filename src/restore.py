@@ -1,4 +1,8 @@
-import requests, sys, functions, os, json
+import functions
+import json
+import requests
+import sys
+
 from api_stuff import radarrapi as api
 
 
@@ -7,8 +11,8 @@ def run(app, path):
     filename = functions.resolveFilename(path)
 
     ## Required API Calls
-    rootFolder = functions.attemptConnection(api.rootFolderUrl)
-    qualityProfiles = functions.attemptConnection(api.qualityProfileUrl)
+    rootFolder = functions.attemptConnection(api.rootFolderUrl, api.apikey)
+    qualityProfiles = functions.attemptConnection(api.qualityProfileUrl, api.apikey)
 
     
     ## Selecting Root Folder
@@ -78,7 +82,8 @@ def run(app, path):
             "monitored": bool(details["monitored"]),
         }
 
-        resp = requests.post(api.movieListUrl, json=jsonbody)
+        headers = {"x-api-key" : api.apikey}
+        resp = requests.post(api.movieListUrl, headers=headers, json=jsonbody)
 
         print("Imported: " + str(details["title"]))
         print(str(resp.elapsed.total_seconds()) + "s")

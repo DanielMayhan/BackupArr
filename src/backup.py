@@ -1,12 +1,16 @@
-import json, os, sys, functions
+import json
+import sys
+
+import functions
 from api_stuff import radarrapi as api
+
 
 def run(app, filename):
     ## Resolving Filename
     filename = functions.resolveFilename(filename)
 
     ## Attempt Connection
-    movieData = functions.attemptConnection(api.movieListUrl)
+    movieData = functions.attemptConnection(api.movieListUrl, api.apikey)
 
     ## Display found movies
     len_data = len(movieData)

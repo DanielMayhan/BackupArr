@@ -1,4 +1,7 @@
-import sys, backup, restore, api_stuff
+import backup
+import restore
+import sys
+
 
 def run():
     if len(sys.argv) != 4:
