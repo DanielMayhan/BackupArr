@@ -1,11 +1,13 @@
 from pathlib import Path
 
-import requests, sys
+import requests
+import sys
 from requests.exceptions import HTTPError, Timeout, RequestException
 
-def attemptConnection(connectionUrl):
+
+def attemptConnection(connectionUrl, apiKey):
     while True:
-        (connected, jsonData) = getJsonDataFromUrl(connectionUrl)
+        (connected, jsonData) = getJsonDataFromUrl(connectionUrl, apiKey)
         if connected: return jsonData
         while True:
             choice = input("Connection failed, make sure the URL is valid and accessible. (y)Reconnect | (n) Exit: ").lower().strip()
@@ -16,11 +18,12 @@ def attemptConnection(connectionUrl):
             else: print("Invalid input. Use: y/n")
 
 # TODO: Added 401 Unauthorized Error
-def getJsonDataFromUrl(connectionUrl):
+def getJsonDataFromUrl(connectionUrl, apiKey):
     noApiUrl = connectionUrl.split("?apiKey=")[0]
     try:
         print("Connecting to " + noApiUrl)
-        response = requests.get(connectionUrl, timeout=10).json()
+        headers = {"x-api-key" : apiKey}
+        response = requests.get(connectionUrl, headers=headers, timeout=10).json()
         print("Connection established.")
         return True, response
     except Timeout:
