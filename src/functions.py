@@ -49,8 +49,6 @@ def makeJsonData(index, data):
 
         jsonData =  {
         "title": str(data[index]["title"]),
-        "cleanTitle": str(data[index]["cleanTitle"]),
-        "imdbId": str(data[index]["imdbId"]),
         "tmdbId": int(data[index]["tmdbId"]),
         "monitored": bool(data[index]["monitored"]),
         "quality": int(quality)
