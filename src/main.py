@@ -12,6 +12,9 @@ def run():
     app = str(sys.argv[2].lower().strip())
     filename = str(sys.argv[3])
 
+    if not (app == "radarr") or "sonarr":
+        sys.exit("Argument Error, 2. Argument must be 'radarr' or 'sonarr'")
+
     if mode == "backup":
         backup.run(app, filename)
     elif mode == "restore":

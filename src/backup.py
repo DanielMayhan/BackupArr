@@ -1,30 +1,35 @@
+import enum
 import json
 import sys
 
 import functions
-from api_stuff import radarrapi as api
-
+import api_stuff as api
 
 def run(app, filename):
     ## Resolving Filename
     filename = functions.resolveFilename(filename)
 
     ## Attempt Connection
-    movieData = functions.attemptConnection(api.movieListUrl, api.apikey)
+    movieData = {}
+    match app:
+        case "radarr":
+            movieData = functions.attemptConnection(api.radarr.movieListUrl, api.radarr.apiKey)
+        case "sonarr":
+            movieData = functions.attemptConnection(api.sonarr.seriesListUrl, api.sonarr.apiKey)
 
     ## Display found movies
     len_data = len(movieData)
     if len_data == 1:
-        print(len_data, "movie have been found.")
+        print(len_data, "movie/series have been found.")
     elif len_data == 0:
-        print("No movie have been found.")
+        print("No movie/series have been found.")
         print("Exiting...")
-        sys.exit("No Movies found.")
+        sys.exit("No movies/series found.")
     else:
-        print(len_data, "movies have been found.")
+        print(len_data, "movies/series have been found.")
 
-
-    ## Making and writing data to json file
+    #TODO: Sonarr Backup | Title, tvdbId, qualityProfileId, rootFolder, monitored
+    ## Making and writing data to JSON file
     jsondata = {}
     for i in range(len_data):
         jsondata[str(movieData[i]["tmdbId"])] = functions.makeJsonData(i, movieData)
