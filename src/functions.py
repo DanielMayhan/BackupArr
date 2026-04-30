@@ -59,6 +59,20 @@ def makeJsonData(index, data):
         print(str(e))
         sys.exit()
 
+def makeSonarrData(index, data, quality):
+    try:
+        jsonData = {
+        "title": str(data[index]["title"]),
+        "tvdbId": int(data[index]["tvdbId"]),
+        "monitored": bool(data[index]["monitored"]),
+        "quality": int(quality)
+        }
+        return jsonData
+    except Exception as e:
+        print("KeyError: Important Data not found!")
+        print(str(e))
+        sys.exit()
+
 def getNumUserInput(lastnum):
     while True:
         num = input("Enter choice, default [0]: ").strip()
