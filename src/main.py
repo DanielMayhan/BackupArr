@@ -2,6 +2,8 @@ import backup
 import restore
 import sys
 
+from src import api_stuff
+
 
 def run():
     if len(sys.argv) != 4:

@@ -17,3 +17,5 @@ class sonarr(StrEnum):
     baseUrl = str(os.getenv("SONARR_URL"))
     seriesListUrl = baseUrl + "/api/v3/series"
     episodeFileUrl = baseUrl + "/api/v3/episodefile"
+    rootFolderUrl = baseUrl + "/api/v3/rootfolder"
+    qualityProfileUrl = baseUrl + "/api/v3/qualityprofile"

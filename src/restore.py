@@ -11,8 +11,15 @@ def run(app, path):
     filename = functions.resolveFilename(path)
 
     ## Required API Calls
-    rootFolder = functions.attemptConnection(api.radarr.rootFolderUrl, api.radarr.apiKey)
-    qualityProfiles = functions.attemptConnection(api.radarr.qualityProfileUrl, api.radarr.apiKey)
+    rootFolder = ""
+    qualityProfiles = ""
+    match app:
+        case "radarr":
+            rootFolder = functions.attemptConnection(api.radarr.rootFolderUrl, api.radarr.apiKey)
+            qualityProfiles = functions.attemptConnection(api.radarr.qualityProfileUrl, api.radarr.apiKey)
+        case "sonarr":
+            rootFolder = functions.attemptConnection(api.sonarr.rootFolderUrl, api.sonarr.apiKey)
+            qualityProfiles = functions.attemptConnection(api.sonarr.qualityProfileUrl, api.sonarr.apiKey)
 
     
     ## Selecting Root Folder
@@ -74,16 +81,29 @@ def run(app, path):
     ## Making data for import
     # TODO: Check Status codes and make Report
     for movie, details in backupdata.items():
+        match app:
+            case "radarr":
+                id_text = "tmdbId"
+                id_cont = details["tmdbId"]
+            case "sonarr":
+                id_text = "tvdbId"
+                id_cont = details["tvdbId"]
+
         jsonbody = {
             "title": str(details["title"]),
-            "tmdbId": int(details["tmdbId"]),
+            str(id_text): int(id_cont),
             "qualityProfileId": quality_dictionary[int(details["quality"])],
             "rootFolderPath": str(selectedRootFolderPath),
             "monitored": bool(details["monitored"]),
         }
 
-        headers = {"x-api-key" : api.radarr.apiKey}
-        resp = requests.post(api.radarr.movieListUrl, headers=headers, json=jsonbody)
+        match app:
+            case "radarr":
+                headers = {"x-api-key" : api.radarr.apiKey}
+                resp = requests.post(api.radarr.movieListUrl, headers=headers, json=jsonbody)
+            case "sonarr":
+                headers = {"x-api-key": api.sonarr.apiKey}
+                resp = requests.post(api.sonarr.seriesListUrl, headers=headers, json=jsonbody)
 
         print("Imported: " + str(details["title"]))
         print(str(resp.elapsed.total_seconds()) + "s")
