@@ -78,7 +78,6 @@ def run(app, path):
 
 
     ## Making data for import
-    # TODO: Check Status codes and make Report
     jsonDataList = []
     for movie, details in backupdata.items():
         match app:
