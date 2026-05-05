@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "backuparr"
+version = "0.1.0"
+description = "A lightweight, efficient way to backup your media library without duplicating large video files."
+readme = "README.md"
+requires-python = ">=3.14"
+license = {file = "LICENSE"}
+authors = [{name = "Daniel Mayhan"}]
+dependencies = ["requests", "python-dotenv"]
+
+[project.scripts]
+run-my-app = "backuparr.main:run"
