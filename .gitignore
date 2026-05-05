@@ -2,3 +2,7 @@
 .env
 .idea
 *.json
+__pycache__/
+dist/
+backuparr.egg-info/
+build/
