@@ -1,4 +1,4 @@
-# BackupArr (WIP)
+# BackupArr
 
 > [!NOTE]
 > **AI-Generated Documentation:** This README was drafted with the assistance of AI, but **NONE** of the Code in this Project was written by AI.
@@ -12,8 +12,8 @@ Traditional backups for media libraries are often prohibitively expensive due to
 
 ---
 
-## Project Status: Pre-Alpha
-**Warning:** This software is highly experimental and a **Work in Progress**. It is not recommended for production use. APIs, database schemas, and configurations are subject to radical changes as development progresses.
+## Project Status: Alpha
+**Warning:** This software is experimental and **Work in Progress**. It is not recommended for production use. Any and all code are subject to radical changes as development progresses.
 
 ---
 
@@ -21,8 +21,8 @@ Traditional backups for media libraries are often prohibitively expensive due to
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/DanielMayhan/BackupArr.git](https://github.com/DanielMayhan/BackupArr.git)
-    cd backuparr
+    git clone https://github.com/DanielMayhan/BackupArr.git
+    cd BackupArr
     ```
 
 2.  **Configure Environment:**
@@ -30,6 +30,25 @@ Traditional backups for media libraries are often prohibitively expensive due to
     ```bash
     cp .env.example .env
     ```
+    
+---
+
+## Usage
+* **Command Structure:**
+    ```bash
+    python3 main.py [backup|restore] [radarr|sonarr] [filename].json
+* **Example Command:**
+    ```bash
+    python3 main.py backup radarr radarr_backup.json
+    ```
+
+---
+
+## Roadmap
+These are features and code changes that are either currently being worked on or are planned to be implemented later!
+* Code Cleanup
+* Unification of all text in-/outputs
+
 
 ---
 
