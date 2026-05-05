@@ -30,7 +30,7 @@ def run(app, filename):
     else:
         print(len_data, "movies/series have been found.")
 
-    #TODO: Sonarr Backup | Title, tvdbId, qualityProfileId, rootFolder, monitored
+
     ## Making and writing data to JSON file
     jsondata = {}
     for i in range(len_data):
@@ -41,7 +41,6 @@ def run(app, filename):
                 jsondata[str(movieData[i]["tmdbId"])] = functions.makeJsonData(i, movieData)
             case "sonarr":
                 quality = -1
-                print("1")
                 if int(movieData[i]["statistics"]["episodeFileCount"]) > 0:
                     req = requests.get(api.sonarr.episodeFileUrl + "?seriesId=" + str(movieData[i]["id"]), headers={"x-api-key": api.sonarr.apiKey}).json()
                     for j in range(len(req)):
@@ -50,7 +49,6 @@ def run(app, filename):
                             break
                         except Exception as e:
                             print("Resolution not found, trying another file...")
-                print(2)
                 jsondata[str(movieData[i]["tvdbId"])] = functions.makeSonarrData(i, movieData, quality)
 
         print("Writing Data for: " + str(movieData[i]["title"]))

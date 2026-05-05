@@ -23,14 +23,14 @@ def getJsonDataFromUrl(connectionUrl, apiKey):
     try:
         print("Connecting to " + noApiUrl)
         headers = {"x-api-key" : apiKey}
-        response = requests.get(connectionUrl, headers=headers, timeout=10).json()
+        response = requests.get(connectionUrl, headers=headers, timeout=10)
         print("Connection established.")
-        return True, response
+        return True, response.json()
     except Timeout:
-        print("Error: The request timed out. This URL might be down or slow.\n@:", noApiUrl)
+        print("Error: The request timed out. This URL might be down or slow. @:", noApiUrl)
         return False, ""
     except ConnectionError:
-        print("Error: Failed to connect to this URL. Check your URL or network.\n@:", noApiUrl)
+        print("Error: Failed to connect to this URL. Check your URL or network. @:", noApiUrl)
         return False, ""
     except HTTPError as e:
         print(f"HTTP Error: {e}\n@:", noApiUrl)
@@ -39,7 +39,7 @@ def getJsonDataFromUrl(connectionUrl, apiKey):
         print(f"An ambiguous error occurred: {e}\n@:", noApiUrl)
         return False, ""
     except ValueError:
-        print("Error: Successfully connected, but received invalid JSON.\n@:", noApiUrl)
+        print("Error: Successfully connected, but received invalid JSON. @:", noApiUrl)
         return False, ""
 
 def makeJsonData(index, data):
