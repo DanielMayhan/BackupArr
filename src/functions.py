@@ -1,7 +1,8 @@
 from pathlib import Path
-
 import requests
 import sys
+import json
+import os
 from requests.exceptions import HTTPError, Timeout, RequestException
 
 
@@ -24,6 +25,9 @@ def getJsonDataFromUrl(connectionUrl, apiKey):
         print("Connecting to " + noApiUrl)
         headers = {"x-api-key" : apiKey}
         response = requests.get(connectionUrl, headers=headers, timeout=10)
+        if response.status_code == 401:
+            print("Error: 401 Request unauthorized. @:", noApiUrl)
+            return False, ""
         print("Connection established.")
         return True, response.json()
     except Timeout:
@@ -91,4 +95,57 @@ def resolveFilename(path):
         filename.parent.mkdir(parents=True, exist_ok=True)
         return filename
     except Exception as e:
-        print("An Error occured: " + str(e))
+        print("An Error occurred: " + str(e))
+
+def postJsonData(connectionUrl, apiKey, jsonDataList):
+    statusDict = {}
+    print("Attempting to post data for " + str(len(jsonDataList)) + " entries...")
+    i = 0
+    for index, item in enumerate(jsonDataList):
+        try:
+            print("Importing: " + item["title"])
+            req_response = requests.post(connectionUrl, headers={"x-api-key" : apiKey}, json=item)
+            if not req_response.status_code == 201:
+                statusDict[index] = req_response
+            print("Code: " + str(req_response.status_code) + " | " + str(req_response.elapsed.total_seconds()) + "s")
+        except Exception as e:
+            print("An Error occurred: " + str(e))
+
+    while True:
+        if len(statusDict) == 0: return
+
+        print("Successfully posted data for " + str(len(jsonDataList) - len(statusDict)) + " entries...")
+
+        choice = input("Do you want to retry all entries that didn't return 201 Created? Retry(r) | List(l) | Default: Exit(e): ").strip().lower()
+        if not choice or choice == "e":
+            sys.exit("User terminated process.")
+        elif choice == "l":
+            for j, resp in statusDict.items():
+                print(f"----- {jsonDataList[j]["title"]} -----")
+                print(f"Code: {resp.status_code}")
+                print(f"Response:\n{json.dumps(resp.json(), indent=4)}")
+                print("-" * 100)
+
+            while True:
+                choice2 = input("Do you want to retry importing? (y/n): ").strip().lower()
+                if choice2 == "y": break
+                elif choice2 == "n": sys.exit("User terminated process.")
+                else: print("Invalid Choice, retrying...")
+        elif choice == "r": print("Retrying...")
+        else:
+            print("Invalid Choice, retrying...")
+            continue
+
+        toDelete = []
+        for k, resp in statusDict.items():
+            print("Importing: " + jsonDataList[k]["title"])
+            retry_resp = requests.post(connectionUrl, headers={"x-api-key" : apiKey}, json=jsonDataList[k])
+            print("Code: " + str(retry_resp.status_code) + " | " + str(retry_resp.elapsed.total_seconds()) + "s")
+            if retry_resp.status_code == 201:
+                print(f"Successfully posted data for: {jsonDataList[k]["title"]}")
+                toDelete.append(k)
+            else:
+                print(f"Still unable to import: {jsonDataList[k]["title"]}")
+
+        for l in toDelete:
+            del statusDict[l]
