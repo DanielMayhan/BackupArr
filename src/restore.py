@@ -96,17 +96,6 @@ def run(app, path):
             "monitored": bool(details["monitored"]),
         })
 
-    # match app:
-    #     case "radarr":
-    #         headers = {"x-api-key" : api.radarr.apiKey}
-    #         resp = requests.post(api.radarr.movieListUrl, headers=headers, json=jsonbody)
-    #     case "sonarr":
-    #         headers = {"x-api-key": api.sonarr.apiKey}
-    #         resp = requests.post(api.sonarr.seriesListUrl, headers=headers, json=jsonbody)
-    # print("Imported: " + str(details["title"]))
-    # print(str(resp.elapsed.total_seconds()) + "s")
-    # print(resp.status_code)
-
     match app:
         case "radarr":
             functions.postJsonData(api.radarr.movieListUrl, api.radarr.apiKey, jsonDataList)
