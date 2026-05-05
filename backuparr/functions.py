@@ -1,8 +1,8 @@
 import json
 import sys
-from pathlib import Path
-
 import requests
+
+from pathlib import Path
 from requests.exceptions import HTTPError, Timeout, RequestException
 
 

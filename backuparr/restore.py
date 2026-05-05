@@ -1,8 +1,8 @@
 import json
 import sys
 
-import api_stuff as api
-import functions
+from backuparr import api_stuff as api
+from backuparr import functions
 
 
 def run(app, path):

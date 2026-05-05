@@ -1,10 +1,9 @@
 import json
 import sys
-
 import requests
 
-import api_stuff as api
-import functions
+from backuparr import api_stuff as api
+from backuparr import functions
 
 
 def run(app, filename):
@@ -34,8 +33,6 @@ def run(app, filename):
     ## Making and writing data to JSON file
     jsondata = {}
     for i in range(len_data):
-        print("Writing Data for: " + str(movieData[i]["title"]))
-
         match app:
             case "radarr":
                 jsondata[str(movieData[i]["tmdbId"])] = functions.makeJsonData(i, movieData)

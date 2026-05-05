@@ -13,4 +13,4 @@ authors = [{name = "Daniel Mayhan"}]
 dependencies = ["requests", "python-dotenv"]
 
 [project.scripts]
-run-my-app = "backuparr.main:run"
+backuparr = "backuparr.main:run"

@@ -1,7 +1,5 @@
 import sys
-
-import backup
-import restore
+from backuparr import backup, restore
 
 
 def run():
