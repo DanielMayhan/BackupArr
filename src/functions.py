@@ -100,7 +100,6 @@ def resolveFilename(path):
 def postJsonData(connectionUrl, apiKey, jsonDataList):
     statusDict = {}
     print("Attempting to post data for " + str(len(jsonDataList)) + " entries...")
-    i = 0
     for index, item in enumerate(jsonDataList):
         try:
             print("Importing: " + item["title"])
