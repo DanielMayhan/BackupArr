@@ -17,6 +17,34 @@ Traditional backups for media libraries are often prohibitively expensive due to
 
 ---
 
+## Installation
+1. Get the newest **.whl** file  release from [Releases](https://github.com/DanielMayhan/BackupArr/releases)
+
+
+2. **Installing the .whl file via pip**
+    ```
+   pip install /directory/of/file/backuparr-[version].whl
+   ```
+
+## Usage
+* **Command Structure:**
+    ```bash
+    backuparr [backup|restore] [radarr|sonarr] [filename].json
+* **Example Command:**
+    ```bash
+    backuparr backup radarr radarr_backup.json
+    ```
+
+---
+
+## Roadmap
+These are features and code changes that are either currently being worked on or are planned to be implemented later!
+* Code Cleanup
+* Unification of all text in-/outputs
+
+
+---
+
 ## Getting Started (Development)
 
 1.  **Clone the repository:**
@@ -31,25 +59,6 @@ Traditional backups for media libraries are often prohibitively expensive due to
     cp .env.example .env
     ```
     
----
-
-## Usage
-* **Command Structure:**
-    ```bash
-    python3 main.py [backup|restore] [radarr|sonarr] [filename].json
-* **Example Command:**
-    ```bash
-    python3 main.py backup radarr radarr_backup.json
-    ```
-
----
-
-## Roadmap
-These are features and code changes that are either currently being worked on or are planned to be implemented later!
-* Code Cleanup
-* Unification of all text in-/outputs
-
-
 ---
 
 ## Contributing
