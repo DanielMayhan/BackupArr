@@ -1,9 +1,8 @@
-import functions
 import json
-import requests
 import sys
 
 import api_stuff as api
+import functions
 
 
 def run(app, path):

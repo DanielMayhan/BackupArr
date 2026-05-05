@@ -1,8 +1,8 @@
-from pathlib import Path
-import requests
-import sys
 import json
-import os
+import sys
+from pathlib import Path
+
+import requests
 from requests.exceptions import HTTPError, Timeout, RequestException
 
 

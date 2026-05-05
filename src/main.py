@@ -1,8 +1,7 @@
-import backup
-import restore
 import sys
 
-from src import api_stuff
+import backup
+import restore
 
 
 def run():

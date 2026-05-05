@@ -1,11 +1,11 @@
-import enum
 import json
 import sys
 
 import requests
 
-import functions
 import api_stuff as api
+import functions
+
 
 def run(app, filename):
     ## Resolving Filename
