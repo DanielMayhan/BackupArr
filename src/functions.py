@@ -18,7 +18,6 @@ def attemptConnection(connectionUrl, apiKey):
                 break
             else: print("Invalid input. Use: y/n")
 
-# TODO: Added 401 Unauthorized Error
 def getJsonDataFromUrl(connectionUrl, apiKey):
     noApiUrl = connectionUrl.split("?apiKey=")[0]
     try:
