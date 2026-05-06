@@ -1,9 +1,8 @@
 # BackupArr
 
-> [!NOTE]
-> **AI-Generated Documentation:** This README was drafted with the assistance of AI, but none of the Code in this Project was written by AI.
+---
 
-Welcome to the **BackupArr** repository. This project is currently in its early development stages (**Pre-Alpha**) and aims to provide a lightweight, efficient way to "back up" your media library without duplicating large video files.
+Welcome to the **BackupArr** repository. This project is currently in its early development stages (**Alpha**) and aims to provide a lightweight, efficient way to "back up" your media library without duplicating large video files.
 
 ---
 
@@ -13,20 +12,48 @@ Traditional backups for media libraries are often prohibitively expensive due to
 ---
 
 ## Project Status: Alpha
-**Warning:** This software is experimental and **Work in Progress**. It is not recommended for production use. Any and all code are subject to radical changes as development progresses.
+**Warning:** This software is experimental and **Work in Progress**. It is not recommended for production use. Any and all code is subject to radical changes as development progresses.
 
 ---
 
 ## Installation
+
+### --- Via File ---
 1. Get the newest **.whl** file  release from [Releases](https://github.com/DanielMayhan/BackupArr/releases)
 
-
-2. **Installing the .whl file via pip**
+2. Installing the **.whl** file via pip:
     ```
-   pip install /directory/of/file/backuparr-[version].whl
-   ```
+    pip install /directory/of/file/backuparr-[version].whl
+    ```
+   
+### --- Via [pip](https://pypi.org/project/backuparr/) ---
+
+* Install with pip (no local file needed):
+    ```
+    pip install /directory/of/file/backuparr-[version].whl
+    ```
+
+---
+
+## First Setup
+
+* **Running First Config Setup:**
+    ```
+    backuparr-init
+    ```
+    This will copy the .env.example file to the .env file, and will ask for the initial values of the keys.
+
+---
 
 ## Usage
+
+* **Changing environment variables**
+    ```
+    backuparr-config
+    ```
+   This will allow you to change the environment variables via the cmd.
+
+
 * **Command Structure:**
     ```bash
     backuparr [backup|restore] [radarr|sonarr] [filename].json
@@ -39,7 +66,6 @@ Traditional backups for media libraries are often prohibitively expensive due to
 
 ## Roadmap
 These are features and code changes that are either currently being worked on or are planned to be implemented later!
-* Code Cleanup
 * Unification of all text in-/outputs
 
 
