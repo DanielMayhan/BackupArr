@@ -45,16 +45,16 @@ These are features and code changes that are either currently being worked on or
 
 ---
 
-## Getting Started (Development)
+## Development
 
 1.  **Clone the repository:**
     ```bash
     git clone https://github.com/DanielMayhan/BackupArr.git
-    cd BackupArr
+    cd BackupArr/backuparr
     ```
 
 2.  **Configure Environment:**
-    Copy the sample configuration and add your Radarr API key & Url.
+    Copy the sample configuration and add your Radarr & Sonarr Api Keys.
     ```bash
     cp .env.example .env
     ```
