@@ -64,10 +64,11 @@ Traditional backups for media libraries are often prohibitively expensive due to
 
 ---
 
-## Roadmap
-These are features and code changes that are either currently being worked on or are planned to be implemented later!
-* Unification of all text in-/outputs
-
+## Contributing
+We welcome all input during these early stages!
+* Open an **Issue** to discuss new ideas or report bugs.
+* Submit a **Pull Request** to help with early-stage logic.
+* Check the **Discussions** tab to help define the project roadmap.
 
 ---
 
@@ -87,11 +88,10 @@ These are features and code changes that are either currently being worked on or
     
 ---
 
-## Contributing
-We welcome all input during these early stages!
-* Open an **Issue** to discuss new ideas or report bugs.
-* Submit a **Pull Request** to help with early-stage logic.
-* Check the **Discussions** tab to help define the project roadmap.
+## Roadmap
+These are features and code changes that are either currently being worked on or are planned to be implemented later!
+* Unification of all text in-/outputs
+
 
 ---
 
