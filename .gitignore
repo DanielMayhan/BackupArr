@@ -1,5 +1,5 @@
 .venv
-.env
+backuparr/.env
 .idea
 *.json
 __pycache__/
