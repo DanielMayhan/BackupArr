@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "backuparr"
-version = "0.1.0"
+version = "0.2.0"
 description = "A lightweight, efficient way to backup your media library without duplicating large video files."
 readme = "README.md"
 requires-python = ">=3.14"
@@ -14,3 +14,5 @@ dependencies = ["requests", "python-dotenv"]
 
 [project.scripts]
 backuparr = "backuparr.main:run"
+backuparr-init = "backuparr.init:run"
+backuparr-config = "backuparr.config:run"
