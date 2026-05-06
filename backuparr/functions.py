@@ -1,8 +1,8 @@
 import json
 import sys
-import requests
-
 from pathlib import Path
+
+import requests
 from requests.exceptions import HTTPError, Timeout, RequestException
 
 
@@ -147,3 +147,11 @@ def postJsonData(connectionUrl, apiKey, jsonDataList):
 
         for l in toDelete:
             del statusDict[l]
+
+
+def getBoolUserInput(message):
+    while True:
+        choice = input(message).strip().lower()
+        if choice == "y": return True
+        elif choice == "n": return False
+        else: print("Invalid Choice, retrying...")

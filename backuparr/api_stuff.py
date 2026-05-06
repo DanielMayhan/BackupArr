@@ -1,9 +1,7 @@
 import os
-
 from enum import StrEnum
+
 from dotenv import load_dotenv
-
-
 
 load_dotenv()
 
