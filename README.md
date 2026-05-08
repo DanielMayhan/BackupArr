@@ -92,6 +92,7 @@ We welcome all input during these early stages!
 These are features and code changes that are either currently being worked on or are planned to be implemented later!
 * Unification of all text in-/outputs
 * Better integration for automated Backups
+* More Installation Methods
 
 
 ---
