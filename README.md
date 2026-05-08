@@ -91,6 +91,7 @@ We welcome all input during these early stages!
 ## Roadmap
 These are features and code changes that are either currently being worked on or are planned to be implemented later!
 * Unification of all text in-/outputs
+* Better integration for automated Backups
 
 
 ---
