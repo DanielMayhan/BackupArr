@@ -3,7 +3,7 @@ from pathlib import Path
 
 from dotenv import dotenv_values, set_key
 
-from backuparr import functions
+from backuparr.utils import functions
 
 
 def run():
