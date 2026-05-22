@@ -7,7 +7,7 @@ name = "backuparr"
 version = "0.2.0"
 description = "A lightweight, efficient way to backup your media library without duplicating large video files."
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.10"
 license = {file = "LICENSE"}
 authors = [{name = "Daniel Mayhan"}]
 dependencies = ["requests", "python-dotenv"]
