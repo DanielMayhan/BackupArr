@@ -18,20 +18,24 @@ Traditional backups for media libraries are often prohibitively expensive due to
 
 ## Installation
 
-### --- Via File ---
-1. Get the newest **.whl** file  release from [Releases](https://github.com/DanielMayhan/BackupArr/releases)
+### 1. pip
 
-2. Installing the **.whl** file via pip:
+* Install with [pip](https://pypi.org/project/backuparr/) _(requires a virtual environment)_:
     ```
-    pip install /directory/of/file/backuparr-[version].whl
+    pip install backuparr
     ```
-   
-### --- Via [pip](https://pypi.org/project/backuparr/) ---
 
-* Install with pip (no local file needed):
+### 2. pipx
+
+* Install with pipx, this requires pipx to be installed. See [pipx wiki](https://pipx.pypa.io/stable/how-to/install-pipx/).
     ```
-    pip install /directory/of/file/backuparr-[version].whl
+    pipx install backuparr
     ```
+
+### 3. Docker (WIP)
+
+* Currently **Work in Progress**, will be added later.
+
 
 ---
 
