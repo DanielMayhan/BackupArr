@@ -26,6 +26,6 @@ jobs:
       run: python -m build
 
     - name: Upload assets to GitHub Release page
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with:
         files: dist/*
