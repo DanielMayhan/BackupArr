@@ -7,8 +7,14 @@ on:
 jobs:
   build-and-attach:
     runs-on: ubuntu-latest
+
+    environment:
+      name: pypi
+      url: https://pypi.org/project/backuparr/
+    
     permissions:
       contents: write
+      id-token: write
 
     steps:
     - name: Checkout repository code
@@ -29,3 +35,6 @@ jobs:
       uses: softprops/action-gh-release@v3
       with:
         files: dist/*
+
+    - name: Publish package distribution to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
