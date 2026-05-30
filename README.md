@@ -25,17 +25,12 @@ Traditional backups for media libraries are often prohibitively expensive due to
     pip install backuparr
     ```
 
-### 2. pipx
+### 2. pipx (Recommended)
 
 * Install with pipx, this requires pipx to be installed. See [pipx wiki](https://pipx.pypa.io/stable/how-to/install-pipx/).
     ```
     pipx install backuparr
     ```
-
-### 3. Docker (WIP)
-
-* Currently **Work in Progress**, will be added later.
-
 
 ---
 
