@@ -16,3 +16,4 @@ dependencies = ["requests", "python-dotenv"]
 backuparr = "backuparr.main:run"
 backuparr-init = "backuparr.init:run"
 backuparr-config = "backuparr.config:run"
+backuparr-help = "backuparr.help:run"
