@@ -19,20 +19,20 @@ Traditional backups for media libraries are often prohibitively expensive due to
 
 ## Installation
 
-### 1. pip
-
-* Install with [pip](https://pypi.org/project/backuparr/) _(requires a virtual environment)_:
-    ```
-    pip install backuparr
-    ```
-
-### 2. pipx (Recommended)
+### 1. pipx (Recommended)
 
 * Install with pipx, this requires pipx to be installed. See [pipx wiki](https://pipx.pypa.io/stable/how-to/install-pipx/).
     ```
     pipx install backuparr
     ```
+  
+### 2. pip
 
+* Install with pip _(requires a virtual environment)_:
+    ```
+    pip install backuparr
+    ```
+  
 ---
 
 ## First Setup
@@ -57,10 +57,16 @@ Traditional backups for media libraries are often prohibitively expensive due to
 * **Command Structure:**
     ```bash
     backuparr [backup|restore] [radarr|sonarr] [filename].json
+
 * **Example Command:**
     ```bash
     backuparr backup radarr radarr_backup.json
     ```
+* **Help Command:**
+    ```bash
+    backuparr-help
+    ```
+    Displays all the commands and their usages.
 
 ---
 
@@ -92,7 +98,6 @@ We welcome all input during these early stages!
 These are features and code changes that are either currently being worked on or are planned to be implemented later!
 * Unification of all text in-/outputs
 * Better integration for automated Backups
-* More Installation Methods
 
 
 ---
