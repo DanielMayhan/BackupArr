@@ -1,5 +1,6 @@
 # BackupArr
 
+> **AI Notice:** NONE of the Code in this Repository has been written by AI, that being said I did use AI to partially draft this [README.md](https://github.com/DanielMayhan/BackupArr/blob/master/README.md). (I really suck at this stuff...)
 ---
 
 Welcome to the **BackupArr** repository. This project is currently in its early development stages (**Alpha**) and aims to provide a lightweight, efficient way to "back up" your media library without duplicating large video files.
