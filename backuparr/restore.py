@@ -1,6 +1,7 @@
 import json
 import sys
 
+import backuparr.utils.printing as error
 from backuparr.utils import functions, api_stuff as api
 
 
@@ -15,6 +16,7 @@ def run(app, path):
         case "radarr":
             rootFolder = functions.attemptConnection(api.radarr.rootFolderUrl, api.radarr.apiKey)
             qualityProfiles = functions.attemptConnection(api.radarr.qualityProfileUrl, api.radarr.apiKey)
+
         case "sonarr":
             rootFolder = functions.attemptConnection(api.sonarr.rootFolderUrl, api.sonarr.apiKey)
             qualityProfiles = functions.attemptConnection(api.sonarr.qualityProfileUrl, api.sonarr.apiKey)
@@ -22,17 +24,17 @@ def run(app, path):
     
     ## Selecting Root Folder
     if len(rootFolder) == 0:
-        sys.exit("No root folder found, please add a root folder.")
+        error.customExit("No root folder found, please add a root folder to Sonarr/Radarr.")
 
     elif len(rootFolder) == 1:
         selectedRootFolderPath = rootFolder[0]["path"]
-        print("Only one root folder found, no selection needed.")
 
     else:
         print("Choose Root Folder to restore into, default [0]:")
 
         for i in range(len(rootFolder)):
-            print("[" + str(i) + "] | Radarr-ID: " + str(rootFolder[i]["id"]) + " | Accessible: " + str(rootFolder[i]["accessible"]) + " | Free Space: " + str(rootFolder[i]["freeSpace"]) + " | Path: " + str(rootFolder[i]["path"]))
+            print("[" + str(i) + "] | Radarr-ID: " + str(rootFolder[i]["id"]) + " | Accessible: " + str(rootFolder[i]["accessible"]) +
+                  " | Free Space: " + str(rootFolder[i]["freeSpace"]) + " | Path: " + str(rootFolder[i]["path"]))
 
         selectedRootFolderPath = rootFolder[functions.getNumUserInput(len(rootFolder) - 1)]["path"]
 
@@ -40,20 +42,23 @@ def run(app, path):
     ## Load file
     try:
         with open(filename, 'r') as f:
-            backupdata = json.load(f)
+            backupData = json.load(f)
             print("Loaded contents of:", filename)
+
     except Exception as e:
-        sys.exit("An Error occurred: " + str(e))
+        error.printError(e)
+        sys.exit()
 
 
     ## Select Qualities
     qualities_set = set()
     quality_dictionary = {}
 
-    for tmdbID, details in backupdata.items():
+    for tmdbID, details in backupData.items():
         qualities_set.add(details["quality"])
 
     for x in qualities_set:
+
         if x == -1:
             print("There where was no Quality Data found for these movies, which Profile should be used for these?")
 
@@ -64,7 +69,6 @@ def run(app, path):
 
             print("Profile-Id: " + str(quality_dictionary[x]) + " is now associated with the movies that had no data found.")
             break
-
 
         print("Which Quality Profile should be used for importing ==> " + str(x) + "P <== movies?")
 
@@ -78,11 +82,12 @@ def run(app, path):
 
     ## Making data for import
     jsonDataList = []
-    for movie, details in backupdata.items():
+    for movie, details in backupData.items():
         match app:
             case "radarr":
                 id_text = "tmdbId"
                 id_cont = details["tmdbId"]
+
             case "sonarr":
                 id_text = "tvdbId"
                 id_cont = details["tvdbId"]
@@ -98,11 +103,11 @@ def run(app, path):
     match app:
         case "radarr":
             functions.postJsonData(api.radarr.movieListUrl, api.radarr.apiKey, jsonDataList)
+
         case "sonarr":
             functions.postJsonData(api.sonarr.seriesListUrl, api.sonarr.apiKey, jsonDataList)
 
-    print("Successfully imported all entries.\nExiting...")
-    sys.exit()
+    error.customExit("Successfully imported all entries.\nExiting...")
 
 if __name__ == "__main__":
     run()
