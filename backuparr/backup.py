@@ -1,9 +1,9 @@
 import json
-import sys
 
 import requests
 
 from backuparr.utils import functions, api_stuff as api
+import backuparr.utils.printing as error
 
 
 def run(app, filename):
@@ -24,8 +24,8 @@ def run(app, filename):
         print(len_data, "movie/series have been found.")
 
     elif len_data == 0:
-        print("No movies/series found.")
-        sys.exit("Exiting...")
+        error.printError("No movies/series found.")
+        error.customExit("Exiting...")
 
     else:
         print(len_data, "movies/series have been found.")
@@ -63,7 +63,7 @@ def run(app, filename):
         json.dump(jsonData, f, indent=4, ensure_ascii=False, sort_keys=True)
 
     print("Data has been writen to:", filename)
-    sys.exit("Exiting...")
+    error.customExit("Exiting...")
 
 if __name__ == "__main__":
     run()

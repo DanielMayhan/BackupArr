@@ -5,7 +5,7 @@ from pathlib import Path
 import requests
 from requests.exceptions import Timeout
 
-import backuparr.utils.errors as error
+import backuparr.utils.printing as error
 from backuparr.utils.colors import bcolors
 
 
