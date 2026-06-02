@@ -1,8 +1,8 @@
 import json
 import sys
 
-from backuparr.utils import functions, api_stuff as api
 import backuparr.utils.printing as error
+from backuparr.utils import functions, api_stuff as api
 
 
 def run(app, path):
