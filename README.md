@@ -12,11 +12,6 @@ Traditional backups for media libraries are often prohibitively expensive due to
 
 ---
 
-## Project Status: Alpha
-**Warning:** This software is experimental and **Work in Progress**. It is not recommended for production use. Any and all code is subject to radical changes as development progresses.
-
----
-
 ## Installation
 
 ### 1. pipx (Recommended)
@@ -96,7 +91,6 @@ We welcome all input during these early stages!
 
 ## Roadmap
 These are features and code changes that are either currently being worked on or are planned to be implemented later!
-* Unification of all text in-/outputs
 * Better integration for automated Backups
 
 

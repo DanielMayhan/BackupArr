@@ -18,8 +18,10 @@ def run():
 
     if mode == "backup":
         backup.run(app, filename)
+
     elif mode == "restore":
         restore.run(app, filename)
+
     else:
         print("Argument Error, Usage: backuparr [backup|restore] [radarr|sonarr] [filename]")
 
